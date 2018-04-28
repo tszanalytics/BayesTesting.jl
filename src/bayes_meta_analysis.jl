@@ -38,35 +38,75 @@ end
 
 
 """
+        update_mean(m1,m0,s21,s22,n1,n0)
+
 Compute updated (combined) posterior summary statistics given
-two sets of posterior statistics
-for uninformative prior, set m0 = s20 = n0 = 0.0
-see Gelman et al. (2014), eqn. (3.7), p. 68
+two sets of posterior statistics assuming both Gaussian.
+
+ - For uninformative prior, set m0 = s20 = n0 = 0.0
+ - see Gelman et al. (2014), eqn. (3.7), p. 68
+
+Input:
+
+        m0 = posterior mean for first sample (or prior mean)
+
+        m1 = posterior mean for second sample (or likelihood mean)
+
+        s0 = posterior standard error for sample 1 mean (NOT SD of sample)
+
+        s1 = posterior standard error for sample 1 mean (NOT SD of sample)
+
+        n0 = number of obs. in sample 1
+
+        n1 = number of obs. in sample 2
+
+N.B.: s = std(x)/sqrt(n)
+
+Returns:
+
+        m2 = posterior mean of combined sample
+
+        s2 = posterior standard error for combined sample
+
+        n2 = n0 + n1
 """
-function update_mean(m1,m0,s21,s20,n1,n0)
+function update_mean(m1,m0,s1,s0,n1,n0)
+  s21 = s1^2
+  s20 = s0^2
   n2 = n1 + n0
   m2 = (n1/n2)*m1 + (n0/n2)*m0
   v2 = n2 - 1.
   vs22 = (n1-1.)*s21 + (n0-1.)*s20 + ((n1*n0)/n2)*(m1 - m0)^2.
-  s22 = vs22/v2
+  s2 = sqrt(vs22/v2)
   return m2, s22, n2
 end
 
 """
-  Compute marginal posterior draws give posterior summary statistics
-  input posterior mean, m, variance, s2 and number of obs. n
-  M = number of draws
-  M = 10000
+        marginal_posterior_mu(m,s2,n, M)
+
+  Compute M marginal Student-t posterior draws.
+
+Input:
+
+          posterior mean, m, standard error, s, and number of obs. n
+
+          M = number of draws (optional: default M = 10000)
+
+Returns:
+
+          M draws for Student-t posterior density.
 """
 # using Distributions
-function marginal_posterior_mu(m,s2,n; M = 10000)
+function marginal_posterior_mu(m,s,n; M = 10000)
+  s2 = s^2
   v = n - 1
   vs2 = v*s2
   # need to either evaluate pdf of t, or
   # draw from t and plot pseudo-sample
-  ts = m + sqrt(s2)*rand(TDist(v),M)
+  ts = m .+ sqrt(s2).*rand(TDist(v),M)
   return ts
 end
+
 
 """
 draw from posteriors for treatment and nontreatment
