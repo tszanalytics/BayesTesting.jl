@@ -1,5 +1,6 @@
 ### functions for posterior odds and Bayes p-value
 #
+using KernelDensity
 
 """
     todds(theta_hat,theta_hat_se,v)
@@ -68,7 +69,7 @@ function mcodds(mcs; h0=0.0)
   # mcs = MC sample
 
 ### NEED catches for when odds too small/large - out of bounds of sample
-  postden = kde(mcs)
+  postden = KernelDensity.kde(mcs)
   ax = abs.(postden.x - h0)
   indx = find(ax .== minimum(ax))  # find all x that = 4 in x
   numodds = maximum(postden.density)
