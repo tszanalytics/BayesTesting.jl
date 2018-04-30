@@ -42,7 +42,11 @@ mu_hat = mean(x)        # sample mean
 se_mu = std(x)/sqrt(v)  # sample standard error of mean
 todds(mu_hat,se_mu,v)   # posterior odds vs. zero
 
-Result: todds(mu_hat, se_mu, v, h0=0) = 1.016
+Result: todds(mu_hat, se_mu, v, h0=0) = 1.016  => 1:1 odds against the null.
+
+# with a nonzero mean - change the data generating process for x above to:
+x = 0.5 + randn(n)
+# Resulting posterior odds: todds(mu_hat, se_mu, v, h0=0) = 110.50  => 110:1 odds against the null
 ```
 
 **Installation**
@@ -50,4 +54,6 @@ Currently unregistered, to install use Pkg.clone() with the repository url:
 
 `Pkg.clone("git@github.com:tszanalytics/BayesTesting.jl.git")`
 
+x = 0.5 randn(n)
+todds(mu_hat, se_mu, v, h0=0) = 110.50136727769036
 
