@@ -14,6 +14,7 @@ Objective Bayesian hypothesis testing that does not suffer from the problems inh
 Optional parameter in following functions: h0= value in hull hypothesis (default is h0 = 0)
 
 **todds(theta_hat,theta_hat_se,v)** = returns Student-t posterior odds for theta
+
 **todds(theta_draws,v)** = returns Student-t posterior odds for theta given MC sample for theta
 
 **mcodds(theta_draws)** = returns posterior odds given MC sample for theta (any distribution).
