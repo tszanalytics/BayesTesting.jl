@@ -33,14 +33,16 @@ Optional parameter in following functions: h0= value in hull hypothesis (default
 
 ```
 using BayesTesting
+srand(1235)             # generate psuedo-data, n obs.
 n = 50
-x = randn(n)    # generate data
+x = randn(n)
 
-v = n-1                         # degrees of freedom
-t_hat = sqrt(n)*mean(x)/std(x)  # t-statistic
-todds(t_hat,v)                  # posterior odds vs null = 0
+v = n-1                 # degrees of freedom
+mu_hat = mean(x)        # sample mean
+se_mu = std(x)/sqrt(v)  # sample standard error of mean
+todds(mu_hat,se_mu,v)   # posterior odds vs. zero
 
-# Result: todds(t_hat, v) = 2.827
+Result: todds(mu_hat, se_mu, v, h0=0) = 1.016
 ```
 
 **Installation**
