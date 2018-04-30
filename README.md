@@ -42,7 +42,8 @@ mu_hat = mean(x)        # sample mean
 se_mu = std(x)/sqrt(v)  # sample standard error of mean
 todds(mu_hat,se_mu,v)   # posterior odds vs. zero
 
-Result: todds(mu_hat, se_mu, v, h0=0) = 1.016  => 1:1 odds against the null.
+# Result: todds(mu_hat, se_mu, v, h0=0) = 1.016  => 1:1 odds against the null.
+
 
 # with a nonzero mean - change the data generating process for x above to:
 x = 0.5 + randn(n)
