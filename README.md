@@ -56,6 +56,4 @@ Currently unregistered, to install use Pkg.clone() with the repository url:
 
 `Pkg.clone("git@github.com:tszanalytics/BayesTesting.jl.git")`
 
-x = 0.5 randn(n)
-todds(mu_hat, se_mu, v, h0=0) = 110.50136727769036
 
