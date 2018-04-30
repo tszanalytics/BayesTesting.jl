@@ -9,7 +9,7 @@ Objective Bayesian hypothesis testing that does not suffer from the problems inh
 
 **Functions currently available (package is under development)**
 
-**Hypothesis testing: **
+**Hypothesis testing:**
 
 Optional parameter in following functions: h0= value in hull hypothesis (default is h0 = 0)
 
