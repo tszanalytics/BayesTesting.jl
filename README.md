@@ -15,8 +15,6 @@ Optional parameter in following functions: h0= value in hull hypothesis (default
 
 **todds(theta_hat,theta_hat_se,v)** = returns Student-t posterior odds for theta
 
-**todds(theta_draws,v)** = returns Student-t posterior odds for theta given MC sample for theta
-
 **mcodds(theta_draws)** = returns posterior odds given MC sample for theta (any distribution).
 
 **bayespval(theta_draws)** = returns Bayesian p-value (tail area) give MC sample for theta
