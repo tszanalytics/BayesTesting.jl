@@ -98,8 +98,34 @@ linear regression function: Compute coeff. estimates, s.e's, equation σ, Rsquar
 
 usage:
 
-  b, seb, s, R2 = linreg(y,x)
+  b, seb, odds, s, R2 = linreg(y,x)
 """
+function blinreg(y,x)
+  X = [ones(length(y)) x]
+  n, k = size(X)
+  v = n - k
+  b = X \ y
+  RSS = (y - X*b)'*(y-X*b)
+  xx = X'*X
+  ixx = xx \ eye(k)
+  s = sqrt(RSS/v)
+  vcv = RSS.*ixx./v
+  seb = sqrt.(diag(vcv))
+  TSS = sum((y .- mean(y)).^2)
+  R2 = 1.0 - RSS/TSS
+  odds = zeros(k)
+  for i in 1:k
+    odds[i] = todds(b[i],seb[i],v)
+  end
+  println("coeffs = ",round.(b,3))
+  println(" s.e's = ",round.(seb,3))
+  println(" odds = ",round.(odds,3))
+  println("s (eqn. standard error) = ",round(s,6))
+  println("Rsquared = ",round(R2,3))
+  return b, seb, odds, s, R2
+end
+
+#= olds version:
 function blinreg(y,x)
   # add intercept
   n = length(y)
@@ -112,8 +138,10 @@ function blinreg(y,x)
   seb = sqrt.(diag(covb))
   k = length(b)
   odds = zeros(k)
+  # pvals = zeros(k)
   for i in 1:k
     odds[i] = todds(b[i],seb[i],(n-k))
+  #   pvals[i] =
   end
   println("coeffs = ",round.(b,3))
   println(" s.e's = ",round.(seb,3))
@@ -127,3 +155,4 @@ function blinreg(y,x)
   s = sqrt(s2)
   return b, seb, s, R2;
 end
+=#
