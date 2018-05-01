@@ -34,7 +34,7 @@ function todds(mcs,v; h0 = 0.0)
   # v = degrees of freedom, n - k
   # h0 = value under null hypothesis
   that = abs.(mean(mcs) - h0)/std(mcs)
-  odds = 1/(1 + (that^2)/v)^(-(v+1)/2)
+  odds = (1 + (that^2)/v)^((v+1)/2)
 end
 
 function todds(theta_hat, theta_se, v; h0 = 0.0)
@@ -43,7 +43,7 @@ function todds(theta_hat, theta_se, v; h0 = 0.0)
   # v = degrees of freedom, n - k
   # h0 = value under null hypothesis
   that = abs.(theta_hat - h0)/theta_se
-  odds = 1/(1 + (that^2)/v)^(-(v+1)/2)
+  odds = (1 + (that^2)/v)^((v+1)/2)
 end
 
 
