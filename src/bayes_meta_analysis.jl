@@ -82,7 +82,7 @@ function update_mean(m1,m0,s1,s0,n1,n0)
 end
 
 """
-        marginal_posterior_mu(m,s2,n, M)
+        marginal_posterior_mu(m,s,n, M)
 
   Compute M marginal Student-t posterior draws.
 
