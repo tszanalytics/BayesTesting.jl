@@ -94,11 +94,11 @@ end
 """
   blinreg(y,x)
 
-linear regression function: Compute coeff. estimates, s.e's, equation σ, Rsquared
+linear regression function: Compute coeff. estimates, s.e's, odds, equation σ, R-squared
 
 usage:
 
-  b, seb, s, R2 = linreg(y,x)
+  b, seb, odds, s, R2 = linreg(y,x)
 """
 function blinreg(y,x)
   # add intercept
