@@ -27,6 +27,17 @@ Optional parameter in following functions: h0= value in hull hypothesis (default
 
 **blinreg(y,X)** = estimate a linear model y=Xβ+u (define X to contain vector of ones for an intercept)
 
+**gsreg(y,X)** = Gibbs sampler for linear regression with default uninformative prior, X must contain 
+	vector of ones to include intercept.
+                Optional parameters:
+                tau = precision starting value (default = 1.0)
+                M = MCMC sample size (default = 10,000)
+
+**gsreg(y,X, M=m, tau=t, b0=priorb, iB0 = invpriorcovb , d0=b, a0=a)** = Gibbs sampler with NIG prior.
+          Note: iB0 = prior precision matrix = inv(prior variance matrix)
+                b0 must be a column vector, 
+                a0 and b0 are prior parameters for tau ~ Gamma(a,b)
+
 
 **Example 1: Testing if a sample mean equals zero**
 
