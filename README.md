@@ -7,6 +7,12 @@ Objective Bayesian hypothesis testing that does not suffer from the problems inh
 3.	In standard problems when the posterior distribution matches (numerically) the frequentist sampling distribution or likelihood, there is a one-to-one correspondence with the frequentist test.
 4.	Provides posterior odds against the null hypothesis that are easy to interpret (unlike *p*-values), do not violate the likelihood principle, and result from minimizing a linear combination of type I and II errors rather than fixing the type I error before testing (as in Neyman-Pearson significance testing).
 
+**Installation**
+Currently unregistered, to install use Pkg.clone() with the repository url:
+
+`Pkg.clone("https://github.com/tszanalytics/BayesTesting.jl")`
+
+
 **Functions currently available (package is under development)**
 
 **Hypothesis testing:**
@@ -59,12 +65,6 @@ todds(mu_hat,se_mu,v)   # posterior odds vs. zero
 x = 0.5 + randn(n)
 # Resulting posterior odds: todds(mu_hat, se_mu, v, h0=0) = 110.50  => 110:1 odds against the null
 ```
-
-**Installation**
-Currently unregistered, to install use Pkg.clone() with the repository url:
-
-`Pkg.clone("git@github.com:tszanalytics/BayesTesting.jl.git")`
-
 
 **More detailed help and examples in:** BayesTesting.jl_docs_2018.pdf
 
