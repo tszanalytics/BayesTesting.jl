@@ -27,16 +27,16 @@ function compare_means(m1, m2, s1, s2, n1, n2; M = 1000000,  lbl=["mu 1" "mu 2"]
     diff_mean = draws_m1 - draws_m2
 # plot(draws_m1,st=:histogram,normalize=true,bins=100)
 #    l = @layout([a b])
-    plt1 = plot(draws_m1,st=:density,fill=(0,0.4,:red),alpha=0.4,label=lbl[1],legend=lgd,title="Posteriors for means")
-    plot!(draws_m2,st=:density,fill=(0,0.4,:blue),alpha=0.4,label=lbl[2])
-    plt2 = plot(diff_mean,st=:density,fill=(0,0.4,:green),alpha=0.4,label="",title="Posterior difference")
-    vline!([0.0],color=:black,label="")
+#    plt1 = plot(draws_m1,st=:density,fill=(0,0.4,:red),alpha=0.4,label=lbl[1],legend=lgd,title="Posteriors for means")
+#    plot!(draws_m2,st=:density,fill=(0,0.4,:blue),alpha=0.4,label=lbl[2])
+#    plt2 = plot(diff_mean,st=:density,fill=(0,0.4,:green),alpha=0.4,label="",title="Posterior difference")
+#    vline!([0.0],color=:black,label="")
 #    plt3 = plot(plt1, plt2, layout=l)
     qs = quantile(diff_mean,[0.005 0.025 0.05 0.5 0.95 0.975 0.995])
     @show(qs)
     tst = [mcodds(diff_mean) bayespval(diff_mean)]
     @show(tst)
-    return plt1,plt2,diff_mean,qs,tst
+    return diff_mean,qs,tst
 end
 
 # function overload for using two samples directly
@@ -49,16 +49,16 @@ function compare_means(x,y; M = 1000000, lbl=["mu 1" "mu 2"],lgd = :topright)
     diff_mean = draws_m1 - draws_m2
 # plot(draws_m1,st=:histogram,normalize=true,bins=100)
 #    l = @layout([a b])
-    plt1 = plot(draws_m1,st=:density,fill=(0,0.4,:red),alpha=0.4,label=lbl[1],legend=lgd,title="Posteriors for means")
-    plot!(draws_m2,st=:density,fill=(0,0.4,:blue),alpha=0.4,label=lbl[2])
-    plt2 = plot(diff_mean,st=:density,fill=(0,0.4,:green),alpha=0.4,label="",title="Posterior difference")
-    vline!([0.0],color=:black,label="")
+#    plt1 = plot(draws_m1,st=:density,fill=(0,0.4,:red),alpha=0.4,label=lbl[1],legend=lgd,title="Posteriors for means")
+#    plot!(draws_m2,st=:density,fill=(0,0.4,:blue),alpha=0.4,label=lbl[2])
+#    plt2 = plot(diff_mean,st=:density,fill=(0,0.4,:green),alpha=0.4,label="",title="Posterior difference")
+#    vline!([0.0],color=:black,label="")
 #    plt3 = plot(plt1, plt2, layout=l)
     qs = quantile(diff_mean,[0.005 0.025 0.05 0.5 0.95 0.975 0.995])
     @show(qs)
     tst = [mcodds(diff_mean) bayespval(diff_mean)]
     @show(tst)
-    return plt1,plt2,diff_mean,qs,tst
+    return diff_mean,qs,tst
 end
 
 """
@@ -70,16 +70,16 @@ function compare_proportions(s1, s2, n1, n2; a =1, b = 1,M = 1000000, lbl=["mu 1
     diff_mean = draws_m1 - draws_m2
 # plot(draws_m1,st=:histogram,normalize=true,bins=100)
 #    l = @layout([a b])
-    plt1 = plot(draws_m1,st=:density,fill=(0,0.4,:red),alpha=0.4,label=lbl[1],legend=lgd,title="Posteriors for proportions",ylab="Density",xlab="Proportion")
-    plot!(draws_m2,st=:density,fill=(0,0.4,:blue),alpha=0.4,label=lbl[2])
-    plt2 = plot(diff_mean,st=:density,fill=(0,0.4,:green),alpha=0.4,label="",title="Posterior difference",xlab="Difference in proportion")
-    vline!([0.0],color=:black,label="",linewidth=2)
+#    plt1 = plot(draws_m1,st=:density,fill=(0,0.4,:red),alpha=0.4,label=lbl[1],legend=lgd,title="Posteriors for proportions",ylab="Density",xlab="Proportion")
+#    plot!(draws_m2,st=:density,fill=(0,0.4,:blue),alpha=0.4,label=lbl[2])
+#    plt2 = plot(diff_mean,st=:density,fill=(0,0.4,:green),alpha=0.4,label="",title="Posterior difference",xlab="Difference in proportion")
+#    vline!([0.0],color=:black,label="",linewidth=2)
 #    plt3 = plot(plt1, plt2, layout=l)
     qs = quantile(diff_mean,[0.005 0.025 0.05 0.5 0.95 0.975 0.995])
     @show(qs)
     tst = [mcodds(diff_mean) bayespval(diff_mean)]
     @show(tst)
-    return plt1,plt2,diff_mean,qs,tst
+    return diff_mean,qs,tst
 end
 
 function compare_proportions(x, y; a =1, b = 1,M = 1000000, lbl=["mu 1" "mu 2"],lgd = :topright)
@@ -90,16 +90,16 @@ function compare_proportions(x, y; a =1, b = 1,M = 1000000, lbl=["mu 1" "mu 2"],
     diff_mean = draws_m1 - draws_m2
 # plot(draws_m1,st=:histogram,normalize=true,bins=100)
 #    l = @layout([a b])
-    plt1 = plot(draws_m1,st=:density,fill=(0,0.4,:blue),alpha=0.4,label=lbl[1],legend=lgd,title="Posteriors for proportions")
-    plot!(draws_m2,st=:density,fill=(0,0.4,:red),alpha=0.4,label=lbl[2])
-    plt2 = plot(diff_mean,st=:density,fill=(0,0.4,:green),alpha=0.4,label="",title="Posterior difference")
-    vline!([0.0],color=:black,label="")
+#    plt1 = plot(draws_m1,st=:density,fill=(0,0.4,:blue),alpha=0.4,label=lbl[1],legend=lgd,title="Posteriors for proportions")
+#    plot!(draws_m2,st=:density,fill=(0,0.4,:red),alpha=0.4,label=lbl[2])
+#    plt2 = plot(diff_mean,st=:density,fill=(0,0.4,:green),alpha=0.4,label="",title="Posterior difference")
+#    vline!([0.0],color=:black,label="")
 #    plt3 = plot(plt1, plt2, layout=l)
     qs = quantile(diff_mean,[0.005 0.025 0.05 0.5 0.95 0.975 0.995])
     @show(qs)
     tst = [mcodds(diff_mean) bayespval(diff_mean)]
     @show(tst)
-    return plt1,pl2,diff_mean,qs,tst
+    return diff_mean,qs,tst
 end
 
 """
