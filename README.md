@@ -73,15 +73,22 @@ ADDED: compare_means and compare_proportions functions
 # plot function for use with compare functions MC output
   Will be added as PlotRecipe to package functions soon.
 ```
-function plot_mc_diff(draws_m1,draws_m2)
+
+function plot_mc_diff(draws_m1,draws_m2;  lbl=["mu 1" "mu 2"],lgd = :topright)
     diff_mean = draws_m1 - draws_m2
     l = @layout([a b])
-    plt1 = plot(draws_m1,st=:density,fill=(0,0.4,:blue),alpha=0.4,label=lbl[1],legend=lgd,title="Posteriors for proportions")
+    plt1 = plot(draws_m1,st=:density,fill=(0,0.4,:blue),alpha=0.4,label=lbl[1],legend=lgd,title="Posteriors from each mean")
     plot!(draws_m2,st=:density,fill=(0,0.4,:red),alpha=0.4,label=lbl[2])
     plt2 = plot(diff_mean,st=:density,fill=(0,0.4,:green),alpha=0.4,label="",title="Posterior difference")
     vline!([0.0],color=:black,label="")
     plt3 = plot(plt1, plt2, layout=l)
     return plt3
 end
-    
+```
+
+Example of use of plot_mc_diff function
+```
+m1 = 1.0; s1 = 0.8; n1 = 10; m2 = 0.0; s2 = 1.0; n2 = 20
+diff_mean, draws_m1, draws_m2, qs, tst = compare_means(m1, m2, s1, s2, n1, n2)
+plt = plot_mc_diff(draws_m1,draws_m2)
 ```
