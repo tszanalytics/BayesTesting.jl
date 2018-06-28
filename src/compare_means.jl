@@ -2,7 +2,7 @@
 Comparison of means: plot posterior densities and compute odds against difference of 0.
 
 Returns:
-        plt,diff_mean,qs,tst
+        diff_mean, draws_m1, draws_m2, qs, tst       ## out-of-date: plt,diff_mean,qs,tst
 
         plt = plot of densities
         diff_mean = MC sample from posterior of difference in means
@@ -36,7 +36,7 @@ function compare_means(m1, m2, s1, s2, n1, n2; M = 1000000,  lbl=["mu 1" "mu 2"]
     @show(qs)
     tst = [mcodds(diff_mean) bayespval(diff_mean)]
     @show(tst)
-    return diff_mean,qs,tst
+    return diff_mean, draws_m1, draws_m2, qs, tst
 end
 
 # function overload for using two samples directly
@@ -58,7 +58,7 @@ function compare_means(x,y; M = 1000000, lbl=["mu 1" "mu 2"],lgd = :topright)
     @show(qs)
     tst = [mcodds(diff_mean) bayespval(diff_mean)]
     @show(tst)
-    return diff_mean,qs,tst
+    return diff_mean, draws_m1, draws_m2, qs, tst
 end
 
 """
@@ -79,7 +79,7 @@ function compare_proportions(s1, s2, n1, n2; a =1, b = 1,M = 1000000, lbl=["mu 1
     @show(qs)
     tst = [mcodds(diff_mean) bayespval(diff_mean)]
     @show(tst)
-    return diff_mean,qs,tst
+    return diff_mean, draws_m1, draws_m2, qs, tst
 end
 
 function compare_proportions(x, y; a =1, b = 1,M = 1000000, lbl=["mu 1" "mu 2"],lgd = :topright)
@@ -99,7 +99,7 @@ function compare_proportions(x, y; a =1, b = 1,M = 1000000, lbl=["mu 1" "mu 2"],
     @show(qs)
     tst = [mcodds(diff_mean) bayespval(diff_mean)]
     @show(tst)
-    return diff_mean,qs,tst
+    return diff_mean, draws_m1, draws_m2, qs, tst
 end
 
 """
