@@ -70,7 +70,7 @@ x = 0.5 + randn(n)
 
 ADDED: compare_means and compare_proportions functions
 
-# plot function for use with compare functions MC output
+### plot function for use with compare functions MC output
   Will be added as PlotRecipe to package functions soon.
 ```
 
