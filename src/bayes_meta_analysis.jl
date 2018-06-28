@@ -98,12 +98,8 @@ Returns:
 """
 # using Distributions
 function marginal_posterior_mu(m,s,n; M = 10000)
-  s2 = s^2
   v = n - 1
-  vs2 = v*s2
-  # need to either evaluate pdf of t, or
-  # draw from t and plot pseudo-sample
-  ts = m .+ sqrt(s2).*rand(TDist(v),M)
+  ts = m .+ s.*rand(TDist(v),M)
   return ts
 end
 
