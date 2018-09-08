@@ -27,7 +27,7 @@ function todds(theta_hat, theta_se, v; h0 = 0.0)
   # v = degrees of freedom, n - k
   # h0 = value under null hypothesis
   that = abs.(theta_hat - h0)/theta_se
-  odds = (1 + (that^2)/v)^((v+1)/2)
+  odds = (1.0 + (that^2)/v)^((v+1)/2.0)
 end
 
 """
@@ -52,13 +52,13 @@ function mcodds(mcs; h0=0.0)
 
 ### NEED catches for when odds too small/large - out of bounds of sample
   postden = KernelDensity.kde(mcs)
-  ax = abs.(postden.x - h0)
-  indx = find(ax .== minimum(ax))  # find all x that = 4 in x
+  ax = abs.(postden.x .- h0)
+  indx = findall(ax .== minimum(ax))  # find all x that = 4 in x
   numodds = maximum(postden.density)
-  denodds = postden.density[indx]
+  denodds = postden.density[indx[1]]
   odds = numodds/denodds[1]
-  if odds > 500000.0
-    odds = 500000.0
+  if odds > 5000000.0
+    odds = 5000000.0
   end
   return odds
 end
@@ -98,11 +98,11 @@ function bayespval(mcs; h0=0.0)
   elseif p == length(mcs)
     pval = 0.0001
   else
-    pval = 2*p/length(mcs)
+    pval = 2.0*p/length(mcs)
   end
 
   if pval >= 1.0
-    pval = 2*(1.0 - pval/2)
+    pval = 2.0*(1.0 - pval/2)
   end
   return pval
 end
