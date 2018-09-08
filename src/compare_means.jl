@@ -1,3 +1,5 @@
+using PlotRecipes
+
 """
 Comparison of means: plot posterior densities and compute odds against difference of 0.
 

@@ -90,19 +90,18 @@ Input:
 
           posterior mean, m, standard error, s, and number of obs. n
 
-          M = number of draws (optional: default M = 10000)
+          M = number of draws (optional: default M = 100,000)
 
 Returns:
 
-          M draws for Student-t posterior density.
+          M draws from Student-t posterior density.
 """
-# using Distributions
-function marginal_posterior_mu(m,s,n; M = 10000)
-  v = n - 1
-  ts = m .+ s.*rand(TDist(v),M)
-  return ts
+function marginal_posterior_mu(m,s,n;M=100000)
+   df = n-1
+   s2 = 1.0./rand(Gamma(df/2, 2/df),M)
+   tv = m .+ s.*sqrt.(s2).*rand(Normal(),M)
+   return tv
 end
-
 
 """
 draw from posteriors for treatment and nontreatment
@@ -115,8 +114,8 @@ function post_treat_notreat(mntreat,s2treat,ntreat, mnnotreat, s2notreat,nnotrea
   drawst = zeros(M,wks)
   drawsnt = zeros(M,wks)
   for i in 1:wks
-    drawst[:,i] = marg_post_mu(mntreat[i],s2treat[i],ntreat[i], M = M)
-    drawsnt[:,i] = marg_post_mu(mnnotreat[i],s2notreat[i],nnotreat[i], M = M)
+    drawst[:,i] = marginal_posterior_mu_post_mu(mntreat[i],s2treat[i],ntreat[i], M = M)
+    drawsnt[:,i] = marginal_posterior_mu(mnnotreat[i],s2notreat[i],nnotreat[i], M = M)
   end
   return drawst, drawsnt
 end
@@ -125,24 +124,22 @@ end
 Compute posterior difference in treatment vs. nontreatment means
 """
 function treat_pcbo_difference(drawst,drawsnt)
-  difbywk = zeros(length(drawst[:,1]),length(drawst[1,:]))
+  difdraws = zeros(length(drawst[:,1]),length(drawst[1,:]))
   for i in 1:length(drawst[1,:])
-    difbywk[:,i] = drawst[:,i] - drawsnt[:,i]
+    difdraws[:,i] = drawst[:,i] - drawsnt[:,i]
   end
-  return difbywk
+  return difdraws
 end
 
 """
 Trajectory plot with 0.95 CIs given posterior means
 """
-# change x axis labels to weeks instead of period
 function traj_plot(means;overlay = false,nwks=3,ci=true)
   if (nwks == 3)
     z = [1 2 3]'   # for up to week 8 = 3 data points
   else
     z = [1 2 3 4]'   # for up to week 12 = 4 data points
   end
-
   mn = means
   lz = log.(z)
   Xloglin = hcat(ones(nwks),lz)
@@ -153,7 +150,7 @@ function traj_plot(means;overlay = false,nwks=3,ci=true)
 
   # compute R^2
   tss = sum((mn[1:nwks]' - mean(mn[1:nwks])).^2)
-  R2 = 1 - s2*2/tss
+  R2 = 1.0 - s2*2.0/tss
   println("Rsquared = ",R2)
   zs = 1.0:0.1:4.2
   score = b[1] + b[2].*log.(zs')
