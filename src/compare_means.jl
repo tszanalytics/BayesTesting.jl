@@ -124,7 +124,7 @@ function beta_update(s1,n1,s2,n2; a1=1,b1=1,a2=1,b2=1,M=100000)
     return theta_draws
 end
 
-
+using PlotRecipes
 """
 equiv_test = Equivalence test from MC sample of difference in ATE
 
