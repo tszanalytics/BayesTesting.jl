@@ -78,7 +78,7 @@ function update_mean(m1,m0,s1,s0,n1,n0)
   v2 = n2 - 1.
   vs22 = (n1-1.)*s21 + (n0-1.)*s20 + ((n1*n0)/n2)*(m1 - m0)^2.
   s2 = sqrt(vs22/v2)
-  return m2, s22, n2
+  return m2, s2, n2
 end
 
 """
@@ -114,7 +114,7 @@ function post_treat_notreat(mntreat,s2treat,ntreat, mnnotreat, s2notreat,nnotrea
   drawst = zeros(M,wks)
   drawsnt = zeros(M,wks)
   for i in 1:wks
-    drawst[:,i] = marginal_posterior_mu_post_mu(mntreat[i],s2treat[i],ntreat[i], M = M)
+    drawst[:,i] = marginal_posterior_mu(mntreat[i],s2treat[i],ntreat[i], M = M)
     drawsnt[:,i] = marginal_posterior_mu(mnnotreat[i],s2notreat[i],nnotreat[i], M = M)
   end
   return drawst, drawsnt

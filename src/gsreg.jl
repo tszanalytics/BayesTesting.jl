@@ -15,7 +15,7 @@
            Note: iB0 = prior precision matrix = inv(prior variance matrix)
                  b0 must be a column Vector
 """
-function gsreg(y::Array{Float64},X::Array{Float64}; M=10000::Int64, burnin = Int(floor(M/10.0))::Int64,tau=[1.0]::Array{Float64},iB0=[0.0001]::Array{Float64},b0=[0.0]::Array{Float64},d0=0.0001::Float64, a0=3.0::Float64)
+function gsreg(y::Array{Float64},X::Array{Float64}; M=100000::Int64, burnin = Int(floor(M/10.0))::Int64,tau=[1.0]::Array{Float64},iB0=[0.0001]::Array{Float64},b0=[0.0]::Array{Float64},d0=0.0001::Float64, a0=3.0::Float64)
     ### check for exception
     M::Int64
 
@@ -30,7 +30,7 @@ function gsreg(y::Array{Float64},X::Array{Float64}; M=10000::Int64, burnin = Int
 #        B0 = ones(k)*10000.0
 #        mB0 = diagm(B0)
 #        iB0 = inv(mB0)
-         iB0 = eye(k)*0.0001
+         iB0 = Matrix(1.0I, m, m).*0.0001
     end
 
     bdraws = zeros(M,k)
@@ -41,19 +41,19 @@ function gsreg(y::Array{Float64},X::Array{Float64}; M=10000::Int64, burnin = Int
     # draw betas
         Db = inv(X'*X.*tau[1] + iB0) #\eye(k,k)
         db = X'y*tau[1] + iB0*b0
-        H = chol(Hermitian(Db))
+        H = (cholesky(Db)).U
         betas = Db*db + H'*randn(k,1)
 
     # draw sigma sq.
     #### N.B. second parameter is inverse of Greenberg/Koop defns.!
-        d1 = d0 + (y-X*betas)'*(y-X*betas)
+        d1 = d0 .+ (y-X*betas)'*(y-X*betas)
         tau = rand(Gamma(a1[1]/2,2/d1[1]),1)
-        sig2 = 1/tau[1]
+        sig2 = 1.0/tau[1]
 
     # store draws
         if i > burnin
             j = i - burnin
-            bdraws[j,:] = betas.'::Array{Float64}
+            bdraws[j,:] = transpose(betas)
             s2draws[j] = sig2::Float64
         end
 

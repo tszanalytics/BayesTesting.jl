@@ -1,7 +1,5 @@
 ### functions for posterior odds and Bayes p-value
 #
-using KernelDensity
-
 """
     todds(theta_hat,theta_hat_se,v)
 

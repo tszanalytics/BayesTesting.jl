@@ -61,10 +61,17 @@ usage:
 
     bhat, seb, s2hat, Vb, R2, yhat = bayesregNIG(y,x; b0=0.,B0=100000.,a0=0.00001,d0=0.00001)
 """
-function bayesregNIG(y,x; b0=0.,B0=100000.,a0=0.00001,d0=0.00001)
+function bayesregNIG(y,x; b0=0.0,B0=100000.0,a0=0.00001,d0=0.00001)
   n = length(y)
   X = [ones(n) x]
   k = size(X,2)
+  if length(b0) < 2
+    b0 = b0.*ones(2)
+  end
+  k = size(X,2)
+  if size(B0,1) < 2
+    B0 = B0.*Matrix(1.0I, m, m)
+  end
 
   # informative analytical- Greenberg, ch. 4, (4.5), (4.6)
   iB0 = inv(B0) # B0\1  # better way to invert computationally
@@ -84,7 +91,7 @@ function bayesregNIG(y,x; b0=0.,B0=100000.,a0=0.00001,d0=0.00001)
 
   # compute R^2
   tss = sum((y .- mean(y)).^2)
-  R2 = 1 - s2hat*n/tss
+  R2 = 1.0 - s2hat*n/tss
   println("Rsquared = ",R2)
   yhat = X*b1
 
@@ -106,7 +113,6 @@ function blinreg(y,x)
   X = [ones(n) x]
   b = (X'*X) \ X'*y
   resids = y - X*b
-
   s2 = sum(resids.^2)/n
   covb = s2.*inv(X'X)
   seb = sqrt.(diag(covb))
@@ -119,11 +125,10 @@ function blinreg(y,x)
   println(" s.e's = ",round.(seb,3))
   println(" odds = ",round.(odds,3))
   println("s^2 (eqn. variance) = ",round(s2,6))
-
   # compute R^2
   tss = sum((y .- mean(y)).^2)
-  R2 = 1 - s2*n/tss
+  R2 = 1.0 - s2*n/tss
   println("Rsquared = ",round(R2,3))
   s = sqrt(s2)
-  return b, seb, s, R2;
+  return b, seb, odds, s, R2;
 end

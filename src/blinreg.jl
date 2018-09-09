@@ -31,7 +31,7 @@ function blinreg(y,x)
 
   # compute R^2
   tss = sum((y .- mean(y)).^2)
-  R2 = 1 - s2*n/tss
+  R2 = 1.0 - s2*n/tss
   println("Rsquared = ",round(R2,3))
   s = sqrt(s2)
   return b, seb, odds, s, R2
