@@ -1,4 +1,4 @@
-using Distributions, PlotRecipes
+# using Distributions, PlotRecipes
 
 # Order of variables in function does not matter (since cor(y,x) = cor(x,y))
 function correlation_ttest(y,x; h0=0.0)
@@ -24,12 +24,12 @@ end
 
 
 # Example of use (vary coefficient on x to increase/reduce correlation)
-x = randn(50)
-y = 0.5 .+ 0.3.*x .+ randn(50)
-cor(x,y)
-results = correlation_ttest(x,y)
-results[1]
-results[2]
-results[3]
-results[4]
+#x = randn(50)
+#y = 0.5 .+ 0.3.*x .+ randn(50)
+#cor(x,y)
+#results = correlation_ttest(x,y)
+#results[1]
+#results[2]
+#results[3]
+#results[4]
 # savefig("trash.png")

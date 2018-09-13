@@ -1,4 +1,4 @@
-using Distributions, KernelDensity, PlotRecipes, Statistics
+# using Distributions, KernelDensity, PlotRecipes, Statistics
 function Bayesian_ttest(x; h0=0.0)
 	n = length(x)
 	v = n - 1
@@ -21,11 +21,11 @@ end
 
 
 # Example of use
-using Random
-Random.seed!(1235)
-x = randn(50) .+ 0.2
-todds, pval, qs, plt = Bayesian_ttest(x,h0=0.0)
-@show(todds, pval)
-@show(qs)
-plt
+#using Random
+#Random.seed!(1235)
+#x = randn(50) .+ 0.2
+#t_odds, p_val, qs, plt = Bayesian_ttest(x,h0=0.0)
+#@show(todds, pval)
+#@show(qs)
+#plt
 # savefig("trash.png")
