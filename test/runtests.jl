@@ -3,7 +3,7 @@ using Base.Test
 
 # write your own tests here
 @testset "Basic tests" begin
-    srand(1235)
+    Random.seed(1235)
     @test round(sum(marginal_posterior_mu(0,1,10,M=1000)),3) == 42.416
 
     ms = [10 8 5]
