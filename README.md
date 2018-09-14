@@ -15,7 +15,7 @@ Currently unregistered, to install use Pkg.clone() with the repository url:
 
 **Functions currently available (package is under development)**
 
-**Functions added (see pdf document for details): 
+**Functions added** (see BayesTesting.jl_docs_2018.pdf for details)**: 
 Bayesian_ttest, correlation_ttest, compare_means, compare_proportions, equiv_test**
 
 **Hypothesis testing:**
