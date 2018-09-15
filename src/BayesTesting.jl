@@ -19,8 +19,9 @@ export
     beta_posterior,
     beta_update,
     equiv_test,
-    Bayesian_ttest,
-    correlation_ttest
+
+    bayes_ttest,
+    bayes_correlation
 
 
 
@@ -29,7 +30,7 @@ include("bayes_odds_pvalue.jl")
 include("bayesreg.jl")
 include("gsreg.jl")
 include("compare_means.jl")
-include("bayesian_ttest.jl")
-include("correlation_coefficient_v1.jl")
+include("bayes_ttest.jl")
+include("bayes_correlation.jl")
 
 end
