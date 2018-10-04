@@ -339,8 +339,8 @@ for i in 1:nwks
 end
 
 
-using Plots, StatPlots, PlotRecipes
-gr()
+#using Plots, StatPlots, PlotRecipes
+#gr()
 
 plot(dfwkh[:,1], st=:density, linecolor = "blue" , label="hi wk0",gridcolor="grey",xlims=(-0.8,0.5), fill=(0,:blue),alpha=0.2,title="High & Low dosage")
 plot!(dfwkh[:,2], st=:density, linecolor = "blue" , label="hi wk4", fill=(0,:blue),alpha=0.3)
