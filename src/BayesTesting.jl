@@ -1,6 +1,6 @@
 module BayesTesting
 
-using Distributions, KernelDensity, LinearAlgebra, Statistics
+using Distributions, KernelDensity, LinearAlgebra, Statistics, Plots
 # using PlotRecipes
 export update_mean, marginal_posterior_mu, mcodds, todds, bayespval
 export blinreg, bayesregNIG, bayesreg, gsreg, compare_means, compare_proportions
