@@ -30,7 +30,7 @@ function gsreg(y::Array{Float64},X::Array{Float64}; M=100000::Int64, burnin = In
 #        B0 = ones(k)*10000.0
 #        mB0 = diagm(B0)
 #        iB0 = inv(mB0)
-         iB0 = Matrix(1.0I, m, m).*0.0001
+         iB0 = Matrix(1.0I, k, k).*0.0001
     end
 
     bdraws = zeros(M,k)
