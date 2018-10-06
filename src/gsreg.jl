@@ -41,7 +41,7 @@ function gsreg(y::Array{Float64},X::Array{Float64}; M=100000::Int64, burnin = In
     # draw betas
         Db = inv(X'*X.*tau[1] + iB0) #\eye(k,k)
         db = X'y*tau[1] + iB0*b0
-        H = (cholesky(Db)).U
+        H = (cholesky(Hermitian(Db))).U
         betas = Db*db + H'*randn(k,1)
 
     # draw sigma sq.
