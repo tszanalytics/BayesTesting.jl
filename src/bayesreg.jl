@@ -17,7 +17,7 @@ function bayesreg(y,x)
 
   # compute R^2
   tss = sum((y .- mean(y)).^2)
-  R2 = 1.0 - s2hat*n/tss
+  R2 = 1.0 - s2hat*n/tss[1]
   println("Rsquared = ",R2)
   yhat = X*bhat;
 
