@@ -8,9 +8,12 @@ Objective Bayesian hypothesis testing that does not suffer from the problems inh
 4.	Provides posterior odds against the null hypothesis that are easy to interpret (unlike *p*-values), do not violate the likelihood principle, and result from minimizing a linear combination of type I and II errors rather than fixing the type I error before testing (as in Neyman-Pearson significance testing).
 
 **Installation**
-Currently unregistered, to install use Pkg.clone() with the repository url:
+Currently unregistered, to install, enter the following (at the julia prompt):
 
-`Pkg.clone("https://github.com/tszanalytics/BayesTesting.jl")`
+```
+julia> ]
+(v1.0) pkg> add https://github.com/tszanalytics/BayesTesting.jl.git
+```
 
 
 **Functions currently available (package is under development)**
