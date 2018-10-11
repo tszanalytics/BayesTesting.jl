@@ -149,14 +149,57 @@ function equiv_test(mc_sample,interval;h0=0.0)
   ps = [p1; p2; p3; p4; p5]
   normps = ps./sum(p1 + p2 + p3 + p4 + p5)
   x = [-4*interval; -2*interval; 0.0; 2*interval; 4*interval]
-  plt = plot(mc_sample,st=:density,label="",ylab="",alpha=0.4,fill=(0,0.4,:green),ylim=(0.0,0.4))
-  plot!(twinx(),x,normps, st=:bar, color=:grey,alpha=0.4,bar_width=2*interval,label="",ylim=(0.0,1.0),ylab="Probability",title = "Equivalence interval probabilities") #,axis=:right
+#  plt = plot(mc_sample,st=:density,label="",ylab="",alpha=0.4,fill=(0,0.4,:green),ylim=(0.0,0.4))
+#  plot!(twinx(),x,normps, st=:bar, color=:grey,alpha=0.4,bar_width=2*interval,label="",ylim=(0.0,1.0),ylab="Probability",title = "Equivalence interval probabilities") #,axis=:right
+  plt = plot(mc_sample,st=:density,label="",ylab="",alpha=0.2,fill=(0,0.2,:blue)) #,ylim=(0.0,0.4))
+  plot!(twinx(),x,normps, st=:bar, color=:green,alpha=0.4,bar_width=2*interval,label="",ylim=(0.0,1.0),ylab="",title = "Equivalence interval probabilities") #,axis=:right
   oddsf35 = normps[3]/normps[5]
   oddsf34 = normps[3]/normps[4]
   oddsf32 = normps[3]/normps[2]
   oddsf31 = normps[3]/normps[1]
   eqodds = [oddsf31 oddsf32 oddsf34  oddsf35]
-  @show(eqodds)
-  @show(normps)
-  return eqodds, normps, plt
+#  @show(eqodds)
+#  @show(normps)
+  return eqodds, normps, plt, x
+end
+
+"""
+Equivalance test with 7 intervals (equiv_test has 5)
+"""
+function equiv_test7(mc_sample,interval;h0=0.0)
+    p1 = p2 = p3 = p4 = p5 = p6 = p7 = 0.0
+    for th1 in mc_sample
+        if th1 < (h0-5*interval)
+            p1 += 1
+        elseif th1 < (h0-3*interval)
+            p2 += 1
+        elseif th1 < (h0-interval)
+            p3 += 1
+        elseif th1 < (h0+interval)
+            p4 += 1
+        elseif th1 < (h0+3*interval)
+            p5 += 1
+        elseif th1 < (h0+5*interval)
+            p6 += 1
+        else
+            p7 += 1
+        end
+    end
+    ps = [p1; p2; p3; p4; p5; p6; p7]
+    normps = ps./sum(p1 + p2 + p3 + p4 + p5 + p6 + p7)
+    x = [-6*interval; -4*interval; -2*interval; 0.0; 2*interval; 4*interval; 6*interval;]
+    #  plt = plot(mc_sample,st=:density,label="",ylab="",alpha=0.4,fill=(0,0.4,:green),ylim=(0.0,0.4))
+    #  plot!(twinx(),x,normps, st=:bar, color=:grey,alpha=0.4,bar_width=2*interval,label="",ylim=(0.0,1.0),ylab="Probability",title = "Equivalence interval probabilities") #,axis=:right
+    plt = plot(mc_sample,st=:density,label="",ylab="",alpha=0.2,fill=(0,0.2,:blue)) #,ylim=(0.0,0.4))
+    plot!(twinx(),x,normps, st=:bar, color=:green,alpha=0.4,bar_width=2*interval,label="",ylim=(0.0,1.0),ylab="",title = "Equivalence interval probabilities") #,axis=:right
+    oddsf47 = normps[4]/normps[7]
+    oddsf46 = normps[4]/normps[6]
+    oddsf45 = normps[4]/normps[5]
+    oddsf43 = normps[4]/normps[3]
+    oddsf42 = normps[4]/normps[2]
+    oddsf41 = normps[4]/normps[1]
+    eqodds = [oddsf41 oddsf42 oddsf43 oddsf45 oddsf46 oddsf47]
+    #  @show(eqodds)
+    #  @show(normps)
+    return eqodds, normps, plt, x
 end
