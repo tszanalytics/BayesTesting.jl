@@ -24,33 +24,6 @@ function bayesreg(y,x)
   return bhat, seb, s2hat, Vb, R2, yhat
 end
 
-
-function bayespval2(mcs; h0=0.0)
-  sort!(mcs)
-  p = 0
-#  pvals = 0.0
-  for i = 1:length(mcs)
-    if mcs[i] <= h0
-#      pvals += mcs[i]
-      p += 1
-    end
-  end
-
-  if p == 0
-    pval = 0.0001
-  elseif p == length(mcs)
-    pval = 0.0001
-  else
-    pval = 2*p/length(mcs)
-  end
-
-  if pval >= 1.0
-    pval = 2*(1.0 - pval/2)
-  end
-  return pval
-end
-
-
 # conjugate NIG prior regression:
 """
   bayesregNIG(y,x)
