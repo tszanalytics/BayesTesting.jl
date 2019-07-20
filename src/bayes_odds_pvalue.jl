@@ -66,6 +66,42 @@ end
 #mcodds(bs[:,2],h0=1.00)
 
 """
+    pdr_pval(theta_draws)
+
+Input:
+
+        theta_draws = MC sample from posterior for theta
+
+Optional argument:
+
+        h0 = value in hull hypothesis (default = 0).
+
+Returns:
+
+        posterior density ratio, one-tailed and two-tailed 'p-value' of evidence against h0.
+        one-tailed 'p-value' = minimum[Prob(theta < 0), Prob(theta>0)]
+"""
+# x = MC sample, h0 = null hypothesis value
+# usage: odds, p_val, pval_2 = post_odds_pval(x, h0 = -2.3)
+function post_odds_pval(x; h0 = 0.0)
+    d = kde(x)
+    p,ind = findmax(d.density)
+    ph0 = ifelse(pdf(d,h0) == 0.0,0.0000001,pdf(d,h0))
+    odds = pdf(d,d.x[ind])/ph0
+    p_val = length(x[x .<= h0])
+    p_val2 = length(x[x .>= h0])
+    if p_val <= p_val2
+        p_value = p_val/length(x)
+    else
+        p_value = p_val2/length(x)
+    end
+    p_value_2tail = 2*p_value
+    return odds, p_value, p_value_2tail
+end
+
+
+
+"""
     bayespval(theta_draws)
 
 Input:
@@ -79,30 +115,19 @@ Optional argument:
 Returns:
 
         posterior 'p-value' of evidence against h0.
+        pval = one tailed value minimum[(Prob(theta <0), Prob(theta>0)]
+        pval2 = two-tailed value (2*pval)
 """
-function bayespval(mcs; h0=0.0)
-  sort!(mcs)
-  p = 0
-#  pvals = 0.0
-  for i = 1:length(mcs)
-    if mcs[i] <= h0
-#      pvals += mcs[i]
-      p += 1
-    end
+function bayespval(mcs; h0=0.0)/length(mcs)
+  p_val = length(mcs[mcs .<= h0])
+  if p_val == 0.0
+    p_val = 0.00001
   end
-
-  if p == 0
-    pval = 0.0001
-  elseif p == length(mcs)
-    pval = 0.0001
-  else
-    pval = 2.0*p/length(mcs)
+  if p_val > 0.5
+    p_val = (1.0 - p_val)
   end
-
-  if pval >= 1.0
-    pval = 2.0*(1.0 - pval/2)
-  end
-  return pval
+  p_val2 = 2.0*p_val
+  return p_val, p_val2
 end
 
 #= old deprecated todds assuming t
