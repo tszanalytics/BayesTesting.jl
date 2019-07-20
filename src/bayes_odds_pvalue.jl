@@ -118,8 +118,8 @@ Returns:
         pval = one tailed value minimum[(Prob(theta <0), Prob(theta>0)]
         pval2 = two-tailed value (2*pval)
 """
-function bayespval(mcs; h0=0.0)/length(mcs)
-  p_val = length(mcs[mcs .<= h0])
+function bayespval(mcs; h0=0.0)
+  p_val = length(mcs[mcs .<= h0])/length(mcs)
   if p_val == 0.0
     p_val = 0.00001
   end
