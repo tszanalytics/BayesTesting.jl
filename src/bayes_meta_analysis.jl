@@ -76,7 +76,8 @@ function update_mean(m1,m0,s1,s0,n1,n0)
   n2 = n1 + n0
   m2 = (n1/n2)*m1 + (n0/n2)*m0
   v2 = n2 - 1.
-  vs22 = (n1-1.)*s21 + (n0-1.)*s20 + ((n1*n0)/n2)*(m1 - m0)^2.
+  vs22 = (n1-1.)*s21 + (n0-1.)*s20 + 
+              ((n1*n0)/n2)*(m1 - m0)^2.
   s2 = sqrt(vs22/v2)
   return m2, s2, n2
 end
