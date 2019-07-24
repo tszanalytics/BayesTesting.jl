@@ -83,7 +83,7 @@ Returns:
 """
 # x = MC sample, h0 = null hypothesis value
 # usage: odds, p_val, pval_2 = post_odds_pval(x, h0 = -2.3)
-function post_odds_pval(x; h0 = 0.0)
+function pdr_pval(x; h0 = 0.0)
     d = kde(x)
     p,ind = findmax(d.density)
     ph0 = ifelse(pdf(d,h0) == 0.0,0.0000001,pdf(d,h0))
