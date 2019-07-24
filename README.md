@@ -25,6 +25,8 @@ Bayesian_ttest, correlation_ttest, compare_means, compare_proportions, equiv_tes
 
 Optional parameter in following functions: h0= value in hull hypothesis (default is h0 = 0)
 
+**pdr_val(theta_draws)** = returns posterior density ratio (PDR, aka posterior odds), tail_prob, 2xtail_prob (a "Bayesian p-value)
+
 **todds(theta_hat,theta_hat_se,v)** = returns Student-t posterior odds for theta
 
 **mcodds(theta_draws)** = returns posterior odds given MC sample for theta (any distribution).
