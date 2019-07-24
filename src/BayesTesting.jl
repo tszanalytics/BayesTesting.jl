@@ -2,7 +2,7 @@ module BayesTesting
 
 using Distributions, KernelDensity, LinearAlgebra, StatsBase, Plots, StatsPlots
 # using PlotRecipes
-export update_mean, marginal_posterior_mu, mcodds, todds, bayespval
+export update_mean, marginal_posterior_mu, mcodds, todds, bayespval, post_odds_pval
 export blinreg, bayesregNIG, bayesreg, gsreg, compare_means, compare_proportions
 export beta_posterior, beta_update, equiv_test, Bayesian_ttest, correlation_ttest
 # package code goes here
