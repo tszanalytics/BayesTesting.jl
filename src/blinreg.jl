@@ -31,9 +31,9 @@ function blinreg(y,x)
     odds[i] = (1.0 + (that[i]^2)/(n-k))^((n-k+1)/2.0)
     pvals[i] = 1.0 - cdf(TDist(n-k), that[i])
   end
-  println("coeffs = ", round.(b, digits=3))
-  println(" s.e's = ", round.(seb, digits=3))
-  println(" odds = ", round.(odds, digits=3))
+  println("  coeffs = ", round.(b, digits=3))
+  println("   s.e's = ", round.(seb, digits=3))
+  println("    odds = ", round.(odds, digits=3))
   println("p-values = ", round.(pvals, digits=4))
   println("s^2 (eqn. variance) = ",round(s2, digits=6))
 
